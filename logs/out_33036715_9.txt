@@ -1,0 +1,3 @@
+Job 9: simulating particles 180 -> 199
+Output directory: results/run_33036715_9
+Saving snapshot at 0 out of 100000 years.
