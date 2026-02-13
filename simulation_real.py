@@ -181,4 +181,4 @@ simulate_and_save(sim,int_time_step,int_total_time,int_archive_interval)
 #vibe
 #how to load stuff data = np.load("orbits.npz", allow_pickle=True)
 # a = data["a"]
-simulate_and_save(sim,int_time_step,int_total_time,int_archive_interval)
+# simulate_and_save(sim,int_time_step,int_total_time,int_archive_interval)
