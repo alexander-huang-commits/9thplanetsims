@@ -80,7 +80,7 @@ def save_image(iter,sim,now,tot):
     snapshot.fig.savefig(f"{outdir}/{int(now)}_orbit_plot.png") #MAKECHANGE
     print(f"{iter}th snapshot saved, it is year {int(now)} out of {tot}!")
 
-#vibe code recommended save style with npz |notes on code are mine
+#Save style npz. The data will be data['data_type_key']['time_index']['particle_index']
 times = []
 #These become lists of lists. So a_hist[0] is the semimajor axes of the particles in order. so each one is supposed to correspond to time slot
 a_hist     = []
@@ -116,7 +116,7 @@ def simulate_and_save(sim,timestep,total_time,archive):
         update_elements_list(sim)
         sim.integrate(timestep)
 
-        #vibes
+        #save checkpoint
         if i % 250 == 0:
             print(f"Saving snapshot at {x} out of {total_time} years.")
             np.savez(
@@ -130,7 +130,7 @@ def simulate_and_save(sim,timestep,total_time,archive):
             units=dict(time="yr", length="AU", angle="rad")
             )
     
-    #vibes
+    #Save after finishing all iterations of integration
     np.savez(
     f"{outdir}/orbits.npz",
     t=np.array(times),
@@ -141,7 +141,7 @@ def simulate_and_save(sim,timestep,total_time,archive):
     omega=np.array(omega_hist),
     units=dict(time="yr", length="AU", angle="rad")
     )
-    #not vibes
+    
 
 
 
@@ -153,7 +153,7 @@ initialize(sim)
 
 
 
-#vibe code selecting integrator 
+#Selecting integrator
 
 #good inbetween for speed and close encounters (because we have close encounters wiht neptune for scattering kelperian integrator which is default is bad)
 sim.integrator = "mercurius"
@@ -161,13 +161,13 @@ sim.dt = .296 #1/40 of Jupiter the most inner planet's gravity
 sim.testparticle_type = 1 #don't calculate test mass's gravitational interactions m=0 doesn't stop it from being in loop
 sim.move_to_com()
 sim.ri_whfast.corrector = 11 #don't know yet
-sim.ri_mercurius.hillfac = 3 #don't know yet
+sim.ri_mercurius.hillfac = 3 #range before calculating using another more accurate integrator
 
 TNOS = SyntheticDisk(num = 20).tnos
 add_disk_to_sim(TNOS,sim)
 
 
-#vibe code HPC
+#Output simulation job data in out file
 N_per_job = 20
 start = job_id * N_per_job
 end = start + N_per_job
@@ -176,10 +176,11 @@ print(f"Job {job_id}: simulating particles {start} -> {end-1}")
 print(f"Output directory: {outdir}")
 
 
-#my code again
+#Start simulation
 
 simulate_and_save(sim,int_time_step,int_total_time,int_archive_interval)
 
-#vibe
+
 #how to load stuff data = np.load("orbits.npz", allow_pickle=True)
+
 # a = data["a"]
