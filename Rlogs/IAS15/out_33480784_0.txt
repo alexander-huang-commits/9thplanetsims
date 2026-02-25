@@ -1,0 +1,2 @@
+Job 0: simulating particles 0 -> 29
+Output directory: results/run_IAS15RUN_0

@@ -1,0 +1,2 @@
+Job 1: simulating particles 30 -> 59
+Output directory: results/run_MERCRUN_1

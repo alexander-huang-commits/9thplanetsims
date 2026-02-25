@@ -1,0 +1,2 @@
+Job 12: simulating particles 360 -> 389
+Output directory: results/run_MERCRUN_12

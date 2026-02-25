@@ -1,0 +1,2 @@
+Job 8: simulating particles 240 -> 269
+Output directory: results/run_MERCRUN_8
